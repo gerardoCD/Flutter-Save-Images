@@ -1,7 +1,5 @@
 import { wrap } from 'async-middleware';
 import { Request, Response, Router } from 'express';
-import { EmailParams, Attachment } from '../model/mail';
-import { DB } from '../db/dbController';
 import { uploadS3 } from '../bi/aws.configuration';
 const router: Router = Router();
 
