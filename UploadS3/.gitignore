@@ -1,0 +1,6 @@
+node_modules/
+out/
+.DS_Store
+src/*.js
+coverage/
+package-lock.json
