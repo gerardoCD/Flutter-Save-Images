@@ -9,11 +9,10 @@ router.post("", wrap(async (req: any, res: Response) => {
     try {
         
         const pathImage = req.files.pathImage.tempFilePath;
-        console.log('pathImage :', pathImage);
+        const pathOriginal = req.body.pathImageOriginal;
         const deviceId = req.body.deviceId;
-        console.log('deviceId :', deviceId);
 
-        await uploadS3(pathImage,deviceId );
+        await uploadS3(pathImage,deviceId,pathOriginal );
 
 
         res.status(200).send({

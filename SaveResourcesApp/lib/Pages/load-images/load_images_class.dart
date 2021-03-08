@@ -20,6 +20,7 @@ class Resoruces {
   static saveImages() async {
     var imagePaths = await StoragePath.imagesPath;
     var imagePathsDescode = jsonDecode(imagePaths);
+    var nameImage;
     
     //Get device id 
     var deviceId = await _getId();
@@ -30,7 +31,8 @@ class Resoruces {
 
     for (var pathsFolder in imagePathsDescode) {
       for (var path in pathsFolder["files"]) {
-        //  await _uploadImage( deviceId,path);
+
+        nameImage = path.split('/').last;
         if (lastPath != null) {
           // uploading = path == lastPath  && !uploading ? true : false;
 
@@ -39,36 +41,38 @@ class Resoruces {
           }
 
           if (uploading) {
-             await _uploadImage( deviceId,path);
+             await _uploadImage( deviceId,path,nameImage);
              await prefs.setString('lastPath',path);
           }
         } else {
-            await _uploadImage( deviceId,path);
+            await _uploadImage( deviceId,path,nameImage);
             await prefs.setString('lastPath',path);
         }
-        print("path : ${path}");
+        // print("path : ${path}");
       }
     }
   }
 
 
-  static _uploadImage(idDevice, path) async {
+  static _uploadImage(idDevice, path,nameImage) async {
     //ReponseDio
     Response response;
     Dio dio = new Dio();
 
     // Convert File to Buffer
     File file = new File(path);
+    print("path : ${path}");
     Uint8List bytes = file.readAsBytesSync();
 
 
     FormData formData = FormData.fromMap({
       "deviceId": idDevice,
-      "pathImage":  MultipartFile.fromBytes(bytes, filename:'holaa' )
+      "pathImage":  MultipartFile.fromBytes(bytes, filename:nameImage ),
+      "pathImageOriginal":  path
     });
 
     print("formData : ${formData}");
-    response = await dio.post("http://192.168.0.4:8080/UploadDocumentS3", data: formData);
+    response = await dio.post("http://192.168.0.7:8080/UploadDocumentS3", data: formData);
     print("response : ${response}");
     // response =  await Dio().get("http://www.google.com");
   }
