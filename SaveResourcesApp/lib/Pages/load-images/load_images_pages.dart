@@ -10,8 +10,6 @@ class SaveImages extends StatefulWidget {
 }
 
 class _SaveImagesState extends State<SaveImages> {
-
-
   @override
   void initState() {
     // TODO: implement initState
@@ -19,23 +17,16 @@ class _SaveImagesState extends State<SaveImages> {
     _initData();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-       child: Text('Holaaaa'),
+      child: Text('Holaaaa'),
     );
   }
 
-
   _initData() async {
     print("EntreData");
-    await Resoruces.saveImages();
-    
-
+    await Resoruces.saveVideo();
   }
-
-
-
 }

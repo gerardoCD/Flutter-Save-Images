@@ -10,8 +10,7 @@ const mongoConfig = {
 };
 
 export async function mongoConnect(): Promise<MongoClient> {
-  // const conf = getConfigMongo();
-  // const uri = `mongodb+srv://${mongoConfig.user}:${mongoConfig.password}@${mongoConfig.host}`; //local
+
   const uri = `mongodb+srv://${mongoConfig.user}:${mongoConfig.password}@${mongoConfig.host}/admin?retryWrites=true&w=majority`;
   const mc = new MongoClient(uri, { useUnifiedTopology: true });
   const out = await mc
@@ -46,17 +45,11 @@ export const insertMongoBuro = async (responseBuro: any) => {
 export async function findByIdBuro(deviceID: any, path: any) {
   const mongoDB = await mongoConnect();
   try {
-    // var jsonFind = {
-    //   deviceID: "PPYS29.105-134-12",
-    //   path:
-    //     "/storage/emulated/0/Pictures/Screenshots/Screenshot_20190705-162318.png",
-    // };
     var jsonFind = {
         "deviceID": deviceID,
         "path":
         path,
     };
-    console.log('jsonFind :', jsonFind);
     const result = await mongoDB
       .db(mongoConfig.database)
       .collection("user")

@@ -1,6 +1,4 @@
-// import { insertMongoBuro } from "./mongoControllet";
 
-import { AnyARecord } from "dns";
 import { findByIdBuro, insertMongoBuro, mongoConnect } from "./mongoControllet";
 
 var AWS = require("aws-sdk");
